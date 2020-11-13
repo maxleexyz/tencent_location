@@ -25,6 +25,13 @@ class TencentLocation {
     return _parsePermissionStatus(result);
   }
 
+  Future<LocationData> getLocation() async {
+    final Map<String, dynamic> resultMap =
+    await _methodChannel.invokeMapMethod('getLocation');
+    return LocationData.fromMap(resultMap);
+  }
+
+
   static PermissionStatus _parsePermissionStatus(int result) {
     switch (result) {
       case 0:

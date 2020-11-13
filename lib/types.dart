@@ -6,7 +6,7 @@ class LocationData {
   LocationData._(this.latitude, this.longitude, this.accuracy, this.altitude,
       this.speed, this.speedAccuracy, this.heading, this.time);
 
-  factory LocationData.fromMap(Map<String, double> dataMap) {
+  factory LocationData.fromMap(Map<String, dynamic> dataMap) {
     return LocationData._(
       dataMap['latitude'],
       dataMap['longitude'],
@@ -51,7 +51,7 @@ class LocationData {
   final double heading;
 
   /// timestamp of the LocationData
-  final double time;
+  final int time;
 
   @override
   String toString() => 'LocationData<lat: $latitude, long: $longitude>';

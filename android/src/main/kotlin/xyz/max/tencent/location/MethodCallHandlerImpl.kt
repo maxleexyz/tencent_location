@@ -27,13 +27,14 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
             }
             "hasPermission" -> onHasPermission(result)
             "requestPermission" -> onRequestPermission(result)
+            "getLocation" -> onGetLocation(result)
             else -> {
                 result.notImplemented()
             }
         }
     }
 
-
+    // 权限检查
     private fun onHasPermission(result: Result) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             result.success(1);
@@ -46,7 +47,7 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
             result.success(0);
         }
     }
-
+    // 权限请求
     private fun onRequestPermission(result: Result) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             result.success(1);
@@ -57,6 +58,15 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
         location.requestPermissions();
     }
 
+    // 获取坐标
+    private fun onGetLocation(result: Result) {
+        location.getLocationResult = result;
+        if (!location.checkPermissions()) {
+            location.requestPermissions();
+        } else {
+            location.startRequestingLocation();
+        }
+    }
 
     fun startListening(messenger: BinaryMessenger) {
         if (channel != null) {

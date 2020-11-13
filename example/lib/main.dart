@@ -67,6 +67,13 @@ class _MyAppState extends State<MyApp> {
                   debugPrint("requestPermission: ${permission.toString()}");
                 },
               ),
+              FlatButton(
+                child: Text("getLocation"),
+                onPressed: () async {
+                  final location = await TencentLocation().getLocation();
+                  debugPrint("location: ${location.toString()}");
+                },
+              ),
             ],
           ),
         ),
