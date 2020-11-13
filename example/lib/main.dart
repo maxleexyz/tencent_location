@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tencent_location/tencent_location.dart';
 
@@ -50,7 +50,25 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              FlatButton(
+                child: Text("hasPermission"),
+                onPressed: () async {
+                  final permission = await TencentLocation().hasPermission();
+                  debugPrint("hasPermission: ${permission.toString()}");
+                },
+              ),
+              FlatButton(
+                child: Text("requestPermission"),
+                onPressed: () async {
+                  final permission = await TencentLocation().requestPermission();
+                  debugPrint("requestPermission: ${permission.toString()}");
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: xyz.max.tencent.tencent_location
+        package: xyz.max.tencent.location
         pluginClass: TencentLocationPlugin
       ios:
         pluginClass: TencentLocationPlugin
