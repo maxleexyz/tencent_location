@@ -27,6 +27,7 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
             }
             "hasPermission" -> onHasPermission(result)
             "requestPermission" -> onRequestPermission(result)
+            "initLocation" -> result.success(1)
             "getLocation" -> onGetLocation(result)
             else -> {
                 result.notImplemented()

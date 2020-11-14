@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - tencent_location (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - tencent_location (from `.symlinks/plugins/tencent_location/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  tencent_location:
+    :path: ".symlinks/plugins/tencent_location/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  tencent_location: a5cc46645308237258ea98228a5ce1399a9261b3
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.10.0

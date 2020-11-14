@@ -1,36 +1,29 @@
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'types.dart';
 
 class TencentLocation {
-  static const MethodChannel _methodChannel =
-      const MethodChannel('tencent_location');
-
-  static Future<String> get platformVersion async {
-    final String version = await _methodChannel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-
+  static const MethodChannel _methodChannel = const MethodChannel('tencent_location');
 
   Future<PermissionStatus> hasPermission() async {
     final int result = await _methodChannel.invokeMethod('hasPermission');
     return _parsePermissionStatus(result);
   }
 
-
   Future<PermissionStatus> requestPermission() async {
     final int result = await _methodChannel.invokeMethod('requestPermission');
     return _parsePermissionStatus(result);
   }
 
-  Future<LocationData> getLocation() async {
-    final Map<String, dynamic> resultMap =
-    await _methodChannel.invokeMapMethod('getLocation');
-    return LocationData.fromMap(resultMap);
+  Future initLocation(String apiKey) async {
+    await _methodChannel.invokeMapMethod('initLocation', apiKey);
   }
 
+  Future<LocationData> getLocation() async {
+    final Map<String, dynamic> resultMap = await _methodChannel.invokeMapMethod('getLocation');
+    return LocationData.fromMap(resultMap);
+  }
 
   static PermissionStatus _parsePermissionStatus(int result) {
     switch (result) {
