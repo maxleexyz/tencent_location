@@ -1,60 +1,136 @@
-
 /// The response object of [Location.getLocation] and [Location.onLocationChanged]
 ///
 /// speedAccuracy cannot be provided on iOS and thus is always 0.
 class LocationData {
-  LocationData._(this.latitude, this.longitude, this.accuracy, this.altitude,
-      this.speed, this.speedAccuracy, this.heading, this.time);
+  LocationData._(
+    this.provider,
+    this.latitude,
+    this.longitude,
+    this.altitude,
+    this.accuracy,
+    this.name,
+    this.address,
+    this.nation,
+    this.province,
+    this.city,
+    this.district,
+    this.town,
+    this.village,
+    this.street,
+    this.streetNo,
+    this.areaStat,
+    this.bearing,
+    this.speed,
+    this.time,
+    this.elapsedRealtime,
+    this.gPSRssi,
+    this.indoorBuildingId,
+    this.indoorBuildingFloor,
+    this.indoorLocationType,
+    this.direction,
+    this.cityCode,
+    this.cityPhoneCode,
+    this.coordinateType,
+    this.isMockGps,
+  );
 
   factory LocationData.fromMap(Map<String, dynamic> dataMap) {
     return LocationData._(
+      dataMap['provider'],
       dataMap['latitude'],
       dataMap['longitude'],
-      dataMap['accuracy'],
       dataMap['altitude'],
+      dataMap['accuracy'],
+      dataMap['name'],
+      dataMap['address'],
+      dataMap['nation'],
+      dataMap['province'],
+      dataMap['city'],
+      dataMap['district'],
+      dataMap['town'],
+      dataMap['village'],
+      dataMap['street'],
+      dataMap['streetNo'],
+      dataMap['areaStat'],
+      dataMap['bearing'],
       dataMap['speed'],
-      dataMap['speed_accuracy'],
-      dataMap['heading'],
       dataMap['time'],
+      dataMap['elapsedRealtime'],
+      dataMap['gPSRssi'],
+      dataMap['indoorBuildingId'],
+      dataMap['indoorBuildingFloor'],
+      dataMap['indoorLocationType'],
+      dataMap['direction'],
+      dataMap['cityCode'],
+      dataMap['cityPhoneCode'],
+      dataMap['coordinateType'],
+      dataMap['isMockGps'],
     );
   }
 
-  /// Latitude in degrees
+  final String provider;
+
   final double latitude;
 
-  /// Longitude, in degrees
   final double longitude;
 
-  /// Estimated horizontal accuracy of this location, radial, in meters
-  ///
-  /// Always 0 on Web
-  final double accuracy;
-
-  /// In meters above the WGS 84 reference ellipsoid
-  ///
-  /// Always 0 on Web
   final double altitude;
 
-  /// In meters/second
-  ///
-  /// Always 0 on Web
+  final double accuracy;
+
+  final String name;
+
+  final String address;
+
+  final String nation;
+
+  final String province;
+
+  final String city;
+
+  final String district;
+
+  final String town;
+
+  final String village;
+
+  final String street;
+
+  final String streetNo;
+
+  final int areaStat;
+
+  // final List<TencentPoi> poiList;
+
+  final double bearing;
+
   final double speed;
 
-  /// In meters/second
-  ///
-  /// Always 0 on Web and iOS
-  final double speedAccuracy;
-
-  /// Heading is the horizontal direction of travel of this device, in degrees
-  ///
-  /// Always 0 on Web
-  final double heading;
-
-  /// timestamp of the LocationData
   final int time;
+
+  final int elapsedRealtime;
+
+  final int gPSRssi;
+
+  final String indoorBuildingId;
+
+  final String indoorBuildingFloor;
+
+  final int indoorLocationType;
+
+  final double direction;
+
+  final String cityCode;
+
+  final String cityPhoneCode;
+
+  final int coordinateType;
+
+  final int isMockGps;
 
   @override
   String toString() => 'LocationData<lat: $latitude, long: $longitude>';
+
 
   @override
   bool operator ==(Object other) =>
@@ -66,8 +142,8 @@ class LocationData {
           accuracy == other.accuracy &&
           altitude == other.altitude &&
           speed == other.speed &&
-          speedAccuracy == other.speedAccuracy &&
-          heading == other.heading &&
+          // speedAccuracy == other.speedAccuracy &&
+          // heading == other.heading &&
           time == other.time;
 
   @override
@@ -77,8 +153,8 @@ class LocationData {
       accuracy.hashCode ^
       altitude.hashCode ^
       speed.hashCode ^
-      speedAccuracy.hashCode ^
-      heading.hashCode ^
+      // speedAccuracy.hashCode ^
+      // heading.hashCode ^
       time.hashCode;
 }
 

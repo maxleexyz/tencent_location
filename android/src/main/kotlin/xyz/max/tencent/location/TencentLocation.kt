@@ -19,7 +19,7 @@ import io.flutter.plugin.common.PluginRegistry
 
 
 /** TencentLocation */
-class TencentLocation(private val applicationContext: Context, var activity: Activity?) : PluginRegistry.RequestPermissionsResultListener, PluginRegistry.ActivityResultListener, TencentLocationListener {
+class TencentLocation(private val applicationContext: Context, var activity: Activity?) : PluginRegistry.RequestPermissionsResultListener, PluginRegistry.ActivityResultListener{
 
     private val TAG = "TencentLocation"
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 34
@@ -166,69 +166,69 @@ class TencentLocation(private val applicationContext: Context, var activity: Act
             locationManager = TencentLocationManager.getInstance(applicationContext)
         }
         Log.d(TAG, "locationManager ${locationManager == null}")
-//
-//        locationManager!!.requestSingleFreshLocation(null, object : TencentLocationListener {
-//
-//
-//
-//        }, Looper.getMainLooper())
 
-        locationManager!!.requestSingleFreshLocation(null, this, Looper.getMainLooper())
-    }
+        locationManager!!.requestSingleFreshLocation(null, object : TencentLocationListener {
 
-    override fun onLocationChanged(location: TencentLocation, error: Int, reason: String?) {
-        Log.d(TAG, "onLocationChanged")
+            override fun onLocationChanged(location: TencentLocation, error: Int, reason: String?) {
+                Log.d(TAG, "onLocationChanged")
 
-        when (error) {
-            0 -> {
-                val map = HashMap<String, Any?>();
-                map["provider"] = location.provider
-                map["latitude"] = location.latitude
-                map["longitude"] = location.longitude
-                map["altitude"] = location.altitude
-                map["accuracy"] = location.accuracy
-                map["name"] = location.name
-                map["address"] = location.address
-                map["nation"] = location.nation
-                map["province"] = location.province
-                map["city"] = location.city
-                map["district"] = location.district
-                map["town"] = location.town
-                map["village"] = location.village
-                map["street"] = location.street
-                map["streetNo"] = location.streetNo
-                map["areaStat"] = location.areaStat
-                map["poiList"] = location.poiList
-                map["bearing"] = location.bearing
-                map["speed"] = location.speed
-                map["time"] = location.time
-                map["elapsedRealtime"] = location.elapsedRealtime
-                map["gpsRssi"] = location.gpsRssi
-                map["indoorBuildingId"] = location.indoorBuildingId
-                map["indoorBuildingFloor"] = location.indoorBuildingFloor
-                map["indoorLocationType"] = location.indoorLocationType
-                map["direction"] = location.direction
-                map["cityCode"] = location.cityCode
-                map["cityPhoneCode"] = location.cityPhoneCode
-                map["coordinateType"] = location.coordinateType
-                map["isMockGps"] = location.isMockGps
-                map["code"] = 200
+                when (error) {
+                    0 -> {
+                        val map = HashMap<String, Any?>();
+                        map["provider"] = location.provider
+                        map["latitude"] = location.latitude
+                        map["longitude"] = location.longitude
+                        map["altitude"] = location.altitude
+                        map["accuracy"] = location.accuracy
+                        map["name"] = location.name
+                        map["address"] = location.address
+                        map["nation"] = location.nation
+                        map["province"] = location.province
+                        map["city"] = location.city
+                        map["district"] = location.district
+                        map["town"] = location.town
+                        map["village"] = location.village
+                        map["street"] = location.street
+                        map["streetNo"] = location.streetNo
+                        map["areaStat"] = location.areaStat
+                        map["poiList"] = location.poiList
+                        map["bearing"] = location.bearing
+                        map["speed"] = location.speed
+                        map["time"] = location.time
+                        map["elapsedRealtime"] = location.elapsedRealtime
+                        map["gpsRssi"] = location.gpsRssi
+                        map["indoorBuildingId"] = location.indoorBuildingId
+                        map["indoorBuildingFloor"] = location.indoorBuildingFloor
+                        map["indoorLocationType"] = location.indoorLocationType
+                        map["direction"] = location.direction
+                        map["cityCode"] = location.cityCode
+                        map["cityPhoneCode"] = location.cityPhoneCode
+                        map["coordinateType"] = location.coordinateType
+                        map["isMockGps"] = location.isMockGps
+                        map["code"] = 200
 
-                if (getLocationResult != null) {
-                    getLocationResult!!.success(map)
-                    getLocationResult = null;
+                        if (getLocationResult != null) {
+                            getLocationResult!!.success(map)
+                            getLocationResult = null;
+                        }
+                    }
+                    else -> {
+                        Log.d(TAG, "onLocationChanged: error:$error reason:$reason")
+                    }
                 }
             }
-            else -> {
-                Log.d(TAG, "onLocationChanged: error:$error reason:$reason")
+
+            override fun onStatusUpdate(var1: String?, var2: Int, var3: String?) {
+                Log.d(TAG, "onStatusUpdate")
+
+                Log.d(TAG, "onStatusUpdate: var1:$var1 var2:$var2 var3:$var3")
+
             }
-        }
+
+        }, Looper.getMainLooper())
+
+//        locationManager!!.requestSingleFreshLocation(null, this, Looper.getMainLooper())
     }
 
-    override fun onStatusUpdate(var1: String?, var2: Int, var3: String?) {
-        Log.d(TAG, "onStatusUpdate")
 
-        Log.d(TAG, "onStatusUpdate: var1:$var1 var2:$var2 var3:$var3")
-
-    }
 }
