@@ -15,6 +15,22 @@ public class SwiftTencentLocationPlugin: NSObject, FlutterPlugin, TencentLBSLoca
   
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
+    case "hasPermission":
+      if self.isPermissionGranted() {
+        result(self.isHighAccuracyPermitted() ? 1: 3)
+      } else {
+        result(0)
+      }
+      break;
+    case "requestPermission":
+      if self.isPermissionGranted() {
+        result(self.isHighAccuracyPermitted() ? 1: 3)
+      } else if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.notDetermined {
+        self.requestPermission()
+      } else {
+        result(2)
+      }
+      break;
     case "initLocation":
       if call.arguments is String {
         self.initLocationManager(apiKey: call.arguments as! String)
@@ -90,5 +106,79 @@ public class SwiftTencentLocationPlugin: NSObject, FlutterPlugin, TencentLBSLoca
       self.locationManager?.requestWhenInUseAuthorization()
     }
   }
+  
+  private func isPermissionGranted() -> Bool {
+    var isPermissionGranted = false
+    
+    let status = CLLocationManager.authorizationStatus()
+    
+    //    #if TARGET_OS_OSX
+    //    if (status == kCLAuthorizationStatusAuthorized) {
+    //      // Location services are available
+    //      isPermissionGranted = true
+    //    } else if #available(macOS 10.12, *) {
+    //      if (status == kCLAuthorizationStatusAuthorizedAlways) {
+    //        // Location services are available
+    //        isPermissionGranted = true
+    //      }
+    //    }
+    //    #else //if TARGET_OS_IOS
+    if (status == CLAuthorizationStatus.authorizedWhenInUse ||
+          status == CLAuthorizationStatus.authorizedAlways) {
+      // Location services are available
+      isPermissionGranted = true
+    }
+    //    #endif
+    
+    else if (status == CLAuthorizationStatus.denied ||
+              status == CLAuthorizationStatus.restricted) {
+      // Location services are requested but user has denied / the app is restricted from
+      // getting location
+      isPermissionGranted = false
+    } else if (status == CLAuthorizationStatus.notDetermined) {
+      // Location services never requested / the user still haven't decide
+      isPermissionGranted = false
+    } else {
+      isPermissionGranted = false
+    }
+    
+    return isPermissionGranted
+  }
+  
+  
+  func isHighAccuracyPermitted() -> Bool {
+    #if __IPHONE_14_0
+    if #available(iOS 14.0, *) {
+      let accuracy = CLLocationManager().accuracyAuthorization
+      if (accuracy == CLAccuracyAuthorization.reducedAccuracy) {
+        return false
+      }
+    }
+    #endif
+    return true
+  }
+  
+  func requestPermission() {
+    #if TARGET_OS_OSX
+    if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil {
+      if #available(macOS 10.15, *) {
+        CLLocationManager().requestAlwaysAuthorization()
+      }
+    }
+    #else
+    if Bundle.main.object(forInfoDictionaryKey: "NSLocationWhenInUseUsageDescription") != nil {
+      CLLocationManager().requestWhenInUseAuthorization()
+    } else if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
+      CLLocationManager().requestAlwaysAuthorization()
+    }
+    #endif
+    //        else {
+    //          [NSException raise:NSInternalInconsistencyException format:
+    //              @"To use location in iOS8 and above you need to define either "
+    //              "NSLocationWhenInUseUsageDescription or NSLocationAlwaysUsageDescription in the app "
+    //              "bundle's Info.plist file"];
+    //        }
+  }
+  
 }
 
