@@ -22,12 +22,9 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
 
         when (call.method) {
-            "getPlatformVersion" -> {
-                result.success("Android MAX ${android.os.Build.VERSION.RELEASE}")
-            }
             "hasPermission" -> onHasPermission(result)
             "requestPermission" -> onRequestPermission(result)
-            "initLocation" -> result.success(1)
+            "initLocation" -> onRequestPermission(result)
             "getLocation" -> onGetLocation(result)
             else -> {
                 result.notImplemented()
@@ -48,6 +45,11 @@ class MethodCallHandlerImpl(private val location: TencentLocation) : MethodCallH
             result.success(0);
         }
     }
+
+    private fun onInit(result: Result) {
+        result.success(1)
+    }
+
     // 权限请求
     private fun onRequestPermission(result: Result) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {

@@ -13,8 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -22,8 +20,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    await TencentLocation().initLocation("YLOBZ-LU6EI-RCLGS-5K344-SA5U7-V7BAQ");
+  initPlatformState() {
+    TencentLocation().initLocation("YLOBZ-LU6EI-RCLGS-5K344-SA5U7-V7BAQ");
   }
 
   @override
@@ -36,12 +34,10 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
-              Text('Running on: $_platformVersion\n'),
               FlatButton(
-                child: Text("hasPermission"),
+                child: Text("init"),
                 onPressed: () async {
-                  final permission = await TencentLocation().hasPermission();
-                  debugPrint("hasPermission: ${permission.toString()}");
+                  await TencentLocation().initLocation("");
                 },
               ),
               FlatButton(
@@ -49,6 +45,13 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final permission = await TencentLocation().requestPermission();
                   debugPrint("requestPermission: ${permission.toString()}");
+                },
+              ),
+              FlatButton(
+                child: Text("hasPermission"),
+                onPressed: () async {
+                  final permission = await TencentLocation().hasPermission();
+                  debugPrint("hasPermission: ${permission.toString()}");
                 },
               ),
               FlatButton(

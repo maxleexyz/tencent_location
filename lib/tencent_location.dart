@@ -17,7 +17,8 @@ class TencentLocation {
   }
 
   Future initLocation(String apiKey) async {
-    await _methodChannel.invokeMapMethod('initLocation', apiKey);
+    final int result = await _methodChannel.invokeMethod('initLocation', apiKey);
+    return result;
   }
 
   Future<LocationData> getLocation() async {
