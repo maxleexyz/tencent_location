@@ -26,6 +26,7 @@ public class SwiftTencentLocationPlugin: NSObject, FlutterPlugin, TencentLBSLoca
       if self.isPermissionGranted() {
         result(self.isHighAccuracyPermitted() ? 1: 3)
       } else if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.notDetermined {
+        // TODO:
         self.requestPermission()
       } else {
         result(2)
