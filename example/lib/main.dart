@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
               FlatButton(
                 child: Text("init"),
                 onPressed: () async {
-                  await TencentLocation().initLocation("");
+                  await TencentLocation().initLocation("YLOBZ-LU6EI-RCLGS-5K344-SA5U7-V7BAQ");
                 },
               ),
               FlatButton(

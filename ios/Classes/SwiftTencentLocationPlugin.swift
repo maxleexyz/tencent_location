@@ -63,7 +63,7 @@ public class SwiftTencentLocationPlugin: NSObject, FlutterPlugin, TencentLBSLoca
           map["street"] = tl.street
           map["streetNo"] = tl.street_no
           map["areaStat"] = tl.areaStat
-          map["poiList"] = tl.poiList
+//          map["poiList"] = tl.poiList
           map["bearing"] = 0.0
           map["speed"] = 0.0
           map["time"] = 0
@@ -78,9 +78,7 @@ public class SwiftTencentLocationPlugin: NSObject, FlutterPlugin, TencentLBSLoca
           map["coordinateType"] = 0
           map["isMockGps"] = 0
           map["code"] = 200
-          
           result(map)
-          self.locationManager?.stopUpdatingLocation()
         }
         
       })

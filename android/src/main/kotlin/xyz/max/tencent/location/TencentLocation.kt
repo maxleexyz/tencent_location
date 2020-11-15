@@ -40,30 +40,7 @@ class TencentLocation(private val applicationContext: Context, var activity: Act
 
     init {
 //        this.locationManager = applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
     }
-
-//    fun setActivity(@Nullable activity: Activity?) {
-//        this.activity = activity
-//        if (this.activity != null) {
-//            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
-//            mSettingsClient = LocationServices.getSettingsClient(activity)
-//            createLocationCallback()
-//            createLocationRequest()
-//            buildLocationSettingsRequest()
-//        } else {
-//            if (mFusedLocationClient != null) {
-//                mFusedLocationClient.removeLocationUpdates(mLocationCallback)
-//            }
-//            mFusedLocationClient = null
-//            mSettingsClient = null
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && locationManager != null) {
-//                locationManager.removeNmeaListener(mMessageListener)
-//                mMessageListener = null
-//            }
-//            locationManager = null
-//        }
-//    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray): Boolean {
         return onRequestPermissionsResultHandler(requestCode, permissions, grantResults)
