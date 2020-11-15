@@ -69,7 +69,7 @@ class TencentLocationPlugin : FlutterPlugin, ActivityAware {
     }
 
     private fun setup() {
-        activityBinding!!.addActivityResultListener(location!!)
+//        activityBinding!!.addActivityResultListener(location!!)
         activityBinding!!.addRequestPermissionsResultListener(location!!)
     }
 
@@ -84,7 +84,7 @@ class TencentLocationPlugin : FlutterPlugin, ActivityAware {
     }
 
     private fun detachActivity() {
-        activityBinding!!.removeActivityResultListener(location!!)
+//        activityBinding!!.removeActivityResultListener(location!!)
         activityBinding!!.removeRequestPermissionsResultListener(location!!)
         activityBinding = null
         location!!.activity = null

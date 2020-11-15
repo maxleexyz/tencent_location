@@ -19,7 +19,8 @@ import io.flutter.plugin.common.PluginRegistry
 
 
 /** TencentLocation */
-class TencentLocation(private val applicationContext: Context, var activity: Activity?) : PluginRegistry.RequestPermissionsResultListener, PluginRegistry.ActivityResultListener{
+class TencentLocation(private val applicationContext: Context, var activity: Activity?) : PluginRegistry.RequestPermissionsResultListener{
+//    , PluginRegistry.ActivityResultListener
 
     private val TAG = "TencentLocation"
     private val REQUEST_PERMISSIONS_REQUEST_CODE = 34
@@ -46,9 +47,9 @@ class TencentLocation(private val applicationContext: Context, var activity: Act
         return onRequestPermissionsResultHandler(requestCode, permissions, grantResults)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-        TODO("Not yet implemented")
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+//        TODO("Not yet implemented")
+//    }
 
 
     /**
